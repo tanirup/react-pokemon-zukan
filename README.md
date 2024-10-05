@@ -180,3 +180,4 @@ react-pokemon-zukan/
 ## お問い合わせ
 
 質問やフィードバックがございましたら、[issues](https://github.com/your-username/react-pokemon-zukan/issues)にてご連絡ください。
+

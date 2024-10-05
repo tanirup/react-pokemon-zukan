@@ -10,3 +10,4 @@ export default defineConfig(({ command }) => {
 
   return config
 })
+
