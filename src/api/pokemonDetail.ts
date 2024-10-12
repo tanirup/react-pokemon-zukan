@@ -20,7 +20,6 @@ export const fetchPokemonDetail = async (id: number): Promise<PokemonDetail> => 
   }
   const data = await response.json();
 
-  // ポケモン種族情報を取得して日本語名を取得
   const speciesResponse = await fetch(data.species.url);
   if (!speciesResponse.ok) {
     throw new Error('ポケモン種族情報の取得に失敗しました');
@@ -31,7 +30,6 @@ export const fetchPokemonDetail = async (id: number): Promise<PokemonDetail> => 
   );
   const japaneseName = japaneseNameEntry ? japaneseNameEntry.name : data.name;
 
-  // タイプの日本語名を取得
   const types = await Promise.all(
     data.types.map(async (typeInfo: PokemonType) => {
       const typeResponse = await fetch(typeInfo.type.url);
@@ -41,7 +39,6 @@ export const fetchPokemonDetail = async (id: number): Promise<PokemonDetail> => 
     })
   );
 
-  // 特性の日本語名を取得
   const abilities = await Promise.all(
     data.abilities.map(async (abilityInfo: PokemonAbility) => {
       const abilityResponse = await fetch(abilityInfo.ability.url);
@@ -51,9 +48,7 @@ export const fetchPokemonDetail = async (id: number): Promise<PokemonDetail> => 
     })
   );
 
-  // 種族値の取得
   const baseStats = await Promise.all(data.stats.map( async (stat: PokemonStat) => {
-    // 日本語名を取得
     const japaneseStatData = await fetch(`https://pokeapi.co/api/v2/stat/${stat.stat.name}`);
     const japaneseStatDataJson = await japaneseStatData.json();
     return {
@@ -64,7 +59,6 @@ export const fetchPokemonDetail = async (id: number): Promise<PokemonDetail> => 
 
   console.log(baseStats);
 
-  // 説明文の取得
   const flavorTextEntry = speciesData.flavor_text_entries.find(
     (entry: FlavorTextEntry) => entry.language.name === 'ja'
   );

@@ -112,5 +112,3 @@ export interface Type {
   pokemon: TypePokemon[];
   moves: NamedAPIResource[];
 }
-
-// 他のタイプ関連の型も同様に定義
